@@ -1,0 +1,22 @@
+#!/bin/rc
+
+fn sigexit{
+	rm -f $tmpfile
+}
+
+journal=$home/journal
+tmpfile=/tmp/j.$pid
+touch $tmpfile
+today=`{date -i}
+lastdate=`{grep '^[0-9]' $journal | tail -n 1}
+if(~ $* 0)
+	hold $tmpfile
+if not
+	echo $* > $tmpfile
+{
+	if(! ~ $today $lastdate)
+		echo $today
+	if not
+		echo
+	sed 's/^/	/g' <$tmpfile
+}>>$journal
