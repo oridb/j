@@ -51,6 +51,7 @@ echo "$now\n$(cat $tmpfile)" > $tmpfile
 (
 	# prepend the date if it's the first entry for the day
 	if ! [ "$today" = "$lastdate" ]; then
+		echo
 		echo $today
 	fi
 
