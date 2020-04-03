@@ -45,9 +45,7 @@ else
 fi
 
 # prepend the timestamp -- if we did this before, it would be visible in the editor
-if [ "$today" = "$lastdate" ]; then
-	echo "$now\n$(cat $tmpfile)" > $tmpfile
-fi
+echo "$now\n$(cat $tmpfile)" > $tmpfile
 
 # append the entry to the actual journal file
 (
