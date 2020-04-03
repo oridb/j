@@ -30,10 +30,9 @@ if [ "$today" = "$lastdate" ]; then
 	echo "$now\n$(cat $tmpfile)" > $tmpfile
 fi
 (
-	if [ "$today" = "$lastdate" ]; then
-		echo
-	else
+	if ! [ "$today" = "$lastdate" ]; then
 		echo $today
 	fi
-	sed 's/^/   /g' <$tmpfile
+	echo
+	sed 's/^/    /g' <$tmpfile
 )>>$journal
