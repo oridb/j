@@ -14,11 +14,17 @@ touch $tmpfile
 today=$(date -I)
 now=$(date -Iseconds)
 lastdate=$(grep '^[0-9]' $journal | tail -n 1)
+ratingregex="^[0-6]\.[0-9]*$"
 if [ -z "$*" ]; then
 	echo $*
 	$editor $tmpfile
 else
-	echo $* >$tmpfile
+	if [ $# -gt 1 -a $(expr "$1" : ^[0-7]$) -gt 0 -o $(expr "$1" : $ratingregex) -gt 0 ]
+	then
+		echo $1 >>$tmpfile
+		shift
+	fi
+	echo $* >>$tmpfile
 fi
 if [ "$today" = "$lastdate" ]; then
 	echo "$now\n$(cat $tmpfile)" > $tmpfile
