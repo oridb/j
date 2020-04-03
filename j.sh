@@ -12,12 +12,16 @@ tmpfile=/tmp/j.$$
 trap "rm -f $tmpfile" EXIT
 touch $tmpfile
 today=$(date -I)
+now=$(date -Iseconds)
 lastdate=$(grep '^[0-9]' $journal | tail -n 1)
 if [ -z "$*" ]; then
 	echo $*
 	$editor $tmpfile
 else
 	echo $* >$tmpfile
+fi
+if [ "$today" = "$lastdate" ]; then
+	echo "$now\n$(cat $tmpfile)" > $tmpfile
 fi
 (
 	if [ "$today" = "$lastdate" ]; then
