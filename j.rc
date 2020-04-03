@@ -8,15 +8,14 @@ journal=$home/journal
 tmpfile=/tmp/j.$pid
 touch $tmpfile
 today=`{date -i}
-lastdate=`{grep '^[0-9]' $journal | tail -n 1}
-if(~ $* 0)
+lastdate=`{grep '^===' $journal | tail -n 1 | sed 's/ *=== *//g'}
+if(~ $#* 0)
 	hold $tmpfile
 if not
 	echo $* > $tmpfile
 {
+	echo
 	if(! ~ $today $lastdate)
-		echo $today
-	if not
-		echo
+		echo '===' $today '==='
 	sed 's/^/	/g' <$tmpfile
 }>>$journal
