@@ -64,15 +64,13 @@ echo "[$now]$metadata\n$(cat $tmpfile)" > $tmpfile
 
 # append the entry to the actual journal file
 (
-	# prepend the date if it's the first entry for the day
+	# prepend the date and a newline if it's the first entry for the day
 	if ! [ "$today" = "$lastdate" ]; then
 		echo
 		echo $today
 	fi
+	echo "  "
 
-	# and a newline
-	echo
-
-	# indent everything
-	sed 's/^/    /g' <$tmpfile
+	# now indent another two spaces and output the entry and heading
+	sed 's/^/  /g' <$tmpfile
 )>>$journal
