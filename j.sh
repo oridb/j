@@ -21,7 +21,7 @@ touch $tmpfile
 # date variables
 today=$(date -I)
 now=$(date +"%Hh%M %z")
-lastdate=$(grep '^[0-9]' $journal | tail -n 1)
+lastdate=$(grep '^===' $journal | tail -n 1 | sed 's/ *=== *//g')
 
 # handle command line arguments
 args=`getopt r: $*`
@@ -67,7 +67,7 @@ echo "[$now]$metadata\n$(cat $tmpfile)" > $tmpfile
 	# prepend the date and a newline if it's the first entry for the day
 	if ! [ "$today" = "$lastdate" ]; then
 		echo
-		echo $today
+		echo "=== $today ==="
 	fi
 	echo "  "
 
