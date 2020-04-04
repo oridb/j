@@ -20,7 +20,7 @@ touch $tmpfile
 
 # date variables
 today=$(date -I)
-now=$(date -Iseconds)
+now=$(date +"%Hh%M %z")
 lastdate=$(grep '^[0-9]' $journal | tail -n 1)
 
 # handle command line arguments
